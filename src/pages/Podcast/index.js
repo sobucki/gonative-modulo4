@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
   EpisodeList,
   PodcastDetails,
   Background,
+  BackButton,
   Cover,
   PodcastTitle,
   PlayButton,
@@ -21,6 +23,11 @@ export default class Podcast extends Component {
     this.state = {};
   }
 
+  handleBack = () => {
+    const { navigation } = this.props;
+    navigation.goBack();
+  };
+
   render() {
     const { navigation } = this.props;
     const podcast = navigation.getParam('podcast');
@@ -30,6 +37,11 @@ export default class Podcast extends Component {
           ListHeaderComponent={() => (
             <PodcastDetails>
               <Background source={{ uri: podcast.cover }} blurRadius={5} />
+
+              <BackButton onPress={this.handleBack}>
+                <Icon name="arrow-back" size={24} color="#FFF" />
+              </BackButton>
+
               <Cover source={{ uri: podcast.cover }} />
 
               <PodcastTitle>{podcast.title}</PodcastTitle>
